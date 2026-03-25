@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function PdfCompress() {
+  const { t } = useLanguage()
   const [file, setFile] = useState<File | null>(null)
   const [compressionLevel, setCompressionLevel] = useState<'low' | 'medium' | 'high'>('medium')
   const [isCompressing, setIsCompressing] = useState(false)
@@ -59,13 +61,13 @@ export default function PdfCompress() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        PDF压缩
+        {t('pdfCompress.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <div className="mb-6">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-            选择PDF文件
+            {t('pdfCompress.upload')}
           </label>
           <input
             type="file"
@@ -127,7 +129,7 @@ export default function PdfCompress() {
           disabled={!file || isCompressing}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {isCompressing ? '压缩中...' : '开始压缩'}
+          {isCompressing ? '压缩中...' : t('pdfCompress.compress')}
         </button>
 
         {compressedFile && (
@@ -140,7 +142,7 @@ export default function PdfCompress() {
               download={`${file?.name.replace('.pdf', '-compressed') || 'compressed'}.pdf`}
               className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 text-center"
             >
-              下载压缩后的PDF文件
+              {t('pdfCompress.download')}
             </a>
           </div>
         )}

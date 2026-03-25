@@ -1,57 +1,62 @@
+"use client"
+
 import Link from 'next/link'
 import AdSense from './components/AdSense'
+import { useLanguage } from './contexts/LanguageContext'
 
 export default function Home() {
+  const { t } = useLanguage()
+  
   return (
     <div className="container">
       <section style={{ textAlign: 'center', margin: '2rem 0' }}>
         <h1>
-          PDFKing - 免费PDF工具
+          {t('home.title')}
         </h1>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
-          提供全方位的PDF处理功能，满足您的各种文档需求
+          {t('home.description')}
         </p>
       </section>
 
       <section className="grid">
         <FeatureCard
-          title="PDF转Word"
+          title={t('common.pdfToWord')}
           description="将PDF文件转换为可编辑的Word文档，保留原始格式"
           link="/pdf-to-word"
           icon="📄"
         />
         <FeatureCard
-          title="PDF合并/拆分"
+          title={t('common.pdfMergeSplit')}
           description="合并多个PDF文件或拆分PDF文件为多个单独文件"
           link="/pdf-merge-split"
           icon="📑"
         />
         <FeatureCard
-          title="PDF压缩"
+          title={t('common.pdfCompress')}
           description="减小PDF文件大小，便于邮件发送和存储"
           link="/pdf-compress"
           icon="📦"
         />
         <FeatureCard
-          title="图片转PDF"
+          title={t('common.imageToPdf')}
           description="将多张图片转换为单个PDF文件，方便整理和分享"
           link="/image-to-pdf"
           icon="🖼️"
         />
         <FeatureCard
-          title="PDF编辑"
+          title={t('common.pdfEdit')}
           description="旋转、删除PDF页面，调整文档结构"
           link="/pdf-edit"
           icon="✏️"
         />
         <FeatureCard
-          title="OCR文字识别"
+          title={t('common.ocr')}
           description="将扫描件转换为可编辑的文本，支持多种语言"
           link="/ocr"
           icon="🔍"
         />
         <FeatureCard
-          title="PDF加密/解密"
+          title={t('common.pdfEncryptDecrypt')}
           description="为PDF文件添加密码保护或解除密码限制"
           link="/pdf-encrypt-decrypt"
           icon="🔒"
@@ -67,7 +72,7 @@ export default function Home() {
         <ul style={{ listStyle: 'none', marginTop: '1rem' }}>
           <li style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
             <span style={{ color: '#10b981', marginRight: '0.5rem' }}>✓</span>
-            <span>完全免费，无隐藏费用</span>
+            <span>{t('home.feature1')}</span>
           </li>
           <li style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
             <span style={{ color: '#10b981', marginRight: '0.5rem' }}>✓</span>
@@ -79,7 +84,7 @@ export default function Home() {
           </li>
           <li style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
             <span style={{ color: '#10b981', marginRight: '0.5rem' }}>✓</span>
-            <span>操作简单，界面友好，适合所有用户</span>
+            <span>{t('home.feature3')}</span>
           </li>
           <li style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
             <span style={{ color: '#10b981', marginRight: '0.5rem' }}>✓</span>

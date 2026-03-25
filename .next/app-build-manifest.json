@@ -11,20 +11,35 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/image-to-pdf/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/image-to-pdf/page.js"
-    ],
     "/pdf-to-word/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/pdf-to-word/page.js"
     ],
-    "/_not-found/page": [
+    "/pdf-merge-split/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/pdf-merge-split/page.js"
+    ],
+    "/pdf-compress/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pdf-compress/page.js"
+    ],
+    "/image-to-pdf/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/image-to-pdf/page.js"
+    ],
+    "/pdf-edit/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pdf-edit/page.js"
+    ],
+    "/pdf-encrypt-decrypt/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pdf-encrypt-decrypt/page.js"
     ]
   }
 }

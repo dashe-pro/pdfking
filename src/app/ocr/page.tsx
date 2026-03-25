@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function Ocr() {
+  const { t } = useLanguage()
   const [file, setFile] = useState<File | null>(null)
-  const [language, setLanguage] = useState('chi_sim') // 简体中文
+  const [language, setLanguage] = useState('chi_sim')
   const [isRecognizing, setIsRecognizing] = useState(false)
   const [recognizedText, setRecognizedText] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -59,13 +61,13 @@ export default function Ocr() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        OCR文字识别
+        {t('ocr.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <div className="mb-6">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-            选择文件（图片或PDF）
+            {t('ocr.upload')}
           </label>
           <input
             type="file"
@@ -103,7 +105,7 @@ export default function Ocr() {
           disabled={!file || isRecognizing}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {isRecognizing ? '识别中...' : '开始识别'}
+          {isRecognizing ? '识别中...' : t('ocr.recognize')}
         </button>
 
         {recognizedText && (

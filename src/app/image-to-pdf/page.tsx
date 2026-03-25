@@ -1,8 +1,11 @@
 "use client"
 
 import { useState } from 'react'
+import AdSense from '../components/AdSense'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function ImageToPdf() {
+  const { t } = useLanguage()
   const [images, setImages] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [isConverting, setIsConverting] = useState(false)
@@ -15,7 +18,6 @@ export default function ImageToPdf() {
     if (imageFiles.length > 0) {
       setImages(prev => [...prev, ...imageFiles])
       
-      // 生成图片预览
       const previews = imageFiles.map(file => URL.createObjectURL(file))
       setImagePreviews(prev => [...prev, ...previews])
       
@@ -68,13 +70,13 @@ export default function ImageToPdf() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        图片转PDF
+        {t('imageToPdf.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
         <div className="mb-6">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-            选择图片文件（支持多张）
+            {t('imageToPdf.upload')}
           </label>
           <input
             type="file"
@@ -118,7 +120,7 @@ export default function ImageToPdf() {
           disabled={images.length === 0 || isConverting}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {isConverting ? '转换中...' : '开始转换'}
+          {isConverting ? '转换中...' : t('imageToPdf.convert')}
         </button>
 
         {convertedFile && (
@@ -131,11 +133,13 @@ export default function ImageToPdf() {
               download="images-to-pdf.pdf"
               className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 text-center"
             >
-              下载PDF文件
+              {t('imageToPdf.download')}
             </a>
           </div>
         )}
       </div>
+
+      <AdSense />
 
       <div className="mt-12 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 max-w-2xl mx-auto">
         <h2 className="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">

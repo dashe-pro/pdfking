@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function PdfEncryptDecrypt() {
+  const { t } = useLanguage()
   const [activeTab, setActiveTab] = useState<'encrypt' | 'decrypt'>('encrypt')
   const [file, setFile] = useState<File | null>(null)
   const [password, setPassword] = useState('')
@@ -104,7 +106,7 @@ export default function PdfEncryptDecrypt() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        PDF加密/解密
+        {t('pdfEncryptDecrypt.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto">
@@ -126,7 +128,7 @@ export default function PdfEncryptDecrypt() {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <div className="mb-6">
             <label className="block text-gray-700 dark:text-gray-300 mb-2">
-              选择PDF文件
+              {t('pdfEncryptDecrypt.upload')}
             </label>
             <input
               type="file"
@@ -160,7 +162,7 @@ export default function PdfEncryptDecrypt() {
             disabled={!file || !password || isProcessing}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            {isProcessing ? `${activeTab === 'encrypt' ? '加密' : '解密'}中...` : `开始${activeTab === 'encrypt' ? '加密' : '解密'}`}
+            {isProcessing ? `${activeTab === 'encrypt' ? '加密' : '解密'}中...` : activeTab === 'encrypt' ? t('pdfEncryptDecrypt.encrypt') : t('pdfEncryptDecrypt.decrypt')}
           </button>
 
           {processedFile && (
@@ -173,7 +175,7 @@ export default function PdfEncryptDecrypt() {
                 download={`${file?.name.replace('.pdf', activeTab === 'encrypt' ? '-encrypted' : '-decrypted') || activeTab === 'encrypt' ? 'encrypted' : 'decrypted'}.pdf`}
                 className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 text-center"
               >
-                下载{activeTab === 'encrypt' ? '加密' : '解密'}后的PDF文件
+                {t('pdfEncryptDecrypt.download')}
               </a>
             </div>
           )}

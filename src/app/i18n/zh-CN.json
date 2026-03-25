@@ -1,0 +1,84 @@
+{
+  "common": {
+    "home": "首页",
+    "pdfToWord": "PDF转Word",
+    "imageToPdf": "图片转PDF",
+    "pdfCompress": "PDF压缩",
+    "pdfEdit": "PDF编辑",
+    "pdfMergeSplit": "PDF合并/拆分",
+    "pdfEncryptDecrypt": "PDF加密/解密",
+    "ocr": "OCR文字识别",
+    "free": "免费",
+    "secure": "安全",
+    "fast": "快速",
+    "easy": "简单"
+  },
+  "header": {
+    "title": "PDFKing",
+    "subtitle": "免费PDF工具"
+  },
+  "footer": {
+    "copyright": "© 2026 PDFKing. 保留所有权利。",
+    "privacy": "隐私政策",
+    "terms": "使用条款"
+  },
+  "home": {
+    "title": "PDFKing - 免费PDF工具",
+    "description": "提供PDF转Word、PDF合并/拆分、PDF压缩、图片转PDF、PDF编辑、OCR文字识别、PDF加密/解密等功能",
+    "feature1": "免费使用",
+    "feature2": "安全可靠",
+    "feature3": "操作简单",
+    "feature4": "处理快速"
+  },
+  "pdfToWord": {
+    "title": "PDF转Word",
+    "description": "将PDF文件转换为可编辑的Word文档",
+    "upload": "上传PDF文件",
+    "convert": "开始转换",
+    "download": "下载Word文件"
+  },
+  "imageToPdf": {
+    "title": "图片转PDF",
+    "description": "将图片文件转换为PDF文档",
+    "upload": "上传图片文件",
+    "convert": "开始转换",
+    "download": "下载PDF文件"
+  },
+  "pdfCompress": {
+    "title": "PDF压缩",
+    "description": "减小PDF文件大小，便于分享和存储",
+    "upload": "上传PDF文件",
+    "compress": "开始压缩",
+    "download": "下载压缩后的PDF文件"
+  },
+  "pdfEdit": {
+    "title": "PDF编辑",
+    "description": "编辑PDF文件内容",
+    "upload": "上传PDF文件",
+    "edit": "开始编辑",
+    "download": "下载编辑后的PDF文件"
+  },
+  "pdfMergeSplit": {
+    "title": "PDF合并/拆分",
+    "description": "合并多个PDF文件或拆分PDF文件为多个",
+    "upload": "上传PDF文件",
+    "merge": "合并PDF",
+    "split": "拆分PDF",
+    "download": "下载处理后的PDF文件"
+  },
+  "pdfEncryptDecrypt": {
+    "title": "PDF加密/解密",
+    "description": "为PDF文件添加密码保护或解除密码保护",
+    "upload": "上传PDF文件",
+    "encrypt": "加密PDF",
+    "decrypt": "解密PDF",
+    "download": "下载处理后的PDF文件"
+  },
+  "ocr": {
+    "title": "OCR文字识别",
+    "description": "从图片或PDF中识别文字",
+    "upload": "上传图片或PDF文件",
+    "recognize": "开始识别",
+    "download": "下载识别结果"
+  }
+}

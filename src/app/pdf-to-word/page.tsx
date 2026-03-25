@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import AdSense from '../components/AdSense'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function PdfToWord() {
+  const { t } = useLanguage()
   const [file, setFile] = useState<File | null>(null)
   const [isConverting, setIsConverting] = useState(false)
   const [convertedFile, setConvertedFile] = useState<string | null>(null)
@@ -58,13 +60,13 @@ export default function PdfToWord() {
   return (
     <div className="container">
       <h1>
-        PDF转Word
+        {t('pdfToWord.title')}
       </h1>
 
       <div className="card" style={{ maxWidth: '600px', margin: '0 auto' }}>
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ display: 'block', marginBottom: '0.5rem' }}>
-            选择PDF文件
+            {t('pdfToWord.upload')}
           </label>
           <input
             type="file"
@@ -84,7 +86,7 @@ export default function PdfToWord() {
           disabled={!file || isConverting}
           style={{ width: '100%' }}
         >
-          {isConverting ? '转换中...' : '开始转换'}
+          {isConverting ? '转换中...' : t('pdfToWord.convert')}
         </button>
 
         {convertedFile && (
@@ -107,7 +109,7 @@ export default function PdfToWord() {
                 textDecoration: 'none'
               }}
             >
-              下载Word文件
+              {t('pdfToWord.download')}
             </a>
           </div>
         )}

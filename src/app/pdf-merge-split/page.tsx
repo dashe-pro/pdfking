@@ -1,14 +1,22 @@
 "use client"
 
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+
+type SplitFile = {
+  filename: string
+  data: string
+}
 
 export default function PdfMergeSplit() {
+  const { t } = useLanguage()
   const [activeTab, setActiveTab] = useState<'merge' | 'split'>('merge')
   const [mergeFiles, setMergeFiles] = useState<File[]>([])
   const [splitFile, setSplitFile] = useState<File | null>(null)
   const [splitRange, setSplitRange] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [processedFile, setProcessedFile] = useState<string | null>(null)
+  const [splitFiles, setSplitFiles] = useState<SplitFile[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const handleMergeFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +75,7 @@ export default function PdfMergeSplit() {
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       setProcessedFile(url)
+      setSplitFiles([])
     } catch (err) {
       setError('合并失败，请重试')
     } finally {
@@ -103,9 +112,9 @@ export default function PdfMergeSplit() {
         throw new Error(errorData.error || '拆分失败')
       }
 
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
-      setProcessedFile(url)
+      const data = await response.json()
+      setSplitFiles(data.files || [])
+      setProcessedFile(null)
     } catch (err) {
       setError('拆分失败，请重试')
     } finally {
@@ -113,22 +122,55 @@ export default function PdfMergeSplit() {
     }
   }
 
+  const downloadFile = (file: SplitFile) => {
+    const binaryString = atob(file.data)
+    const bytes = new Uint8Array(binaryString.length)
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i)
+    }
+    const blob = new Blob([bytes], { type: 'application/pdf' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = file.filename
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  const downloadAllFiles = () => {
+    splitFiles.forEach((file, index) => {
+      setTimeout(() => {
+        downloadFile(file)
+      }, index * 500)
+    })
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        PDF合并/拆分
+        {t('pdfMergeSplit.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto">
         <div className="flex border-b mb-6">
           <button
-            onClick={() => setActiveTab('merge')}
+            onClick={() => {
+              setActiveTab('merge')
+              setSplitFiles([])
+              setProcessedFile(null)
+            }}
             className={`px-4 py-2 ${activeTab === 'merge' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'}`}
           >
             PDF合并
           </button>
           <button
-            onClick={() => setActiveTab('split')}
+            onClick={() => {
+              setActiveTab('split')
+              setSplitFiles([])
+              setProcessedFile(null)
+            }}
             className={`px-4 py-2 ${activeTab === 'split' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'}`}
           >
             PDF拆分
@@ -181,7 +223,7 @@ export default function PdfMergeSplit() {
                 disabled={mergeFiles.length < 2 || isProcessing}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {isProcessing ? '合并中...' : '开始合并'}
+                {isProcessing ? '合并中...' : t('pdfMergeSplit.merge')}
               </button>
             </div>
           ) : (
@@ -206,7 +248,7 @@ export default function PdfMergeSplit() {
 
               <div className="mb-6">
                 <label className="block text-gray-700 dark:text-gray-300 mb-2">
-                  拆分范围（例如：1-3,5-7）
+                  拆分范围（例如：1-3,5-7 或 1,2,3）
                 </label>
                 <input
                   type="text"
@@ -222,7 +264,7 @@ export default function PdfMergeSplit() {
                 disabled={!splitFile || !splitRange || isProcessing}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {isProcessing ? '拆分中...' : '开始拆分'}
+                {isProcessing ? '拆分中...' : t('pdfMergeSplit.split')}
               </button>
             </div>
           )}
@@ -237,8 +279,33 @@ export default function PdfMergeSplit() {
                 download={`${activeTab === 'merge' ? 'merged' : 'split'}.pdf`}
                 className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 text-center"
               >
-                下载{activeTab === 'merge' ? '合并' : '拆分'}后的PDF文件
+                {t('pdfMergeSplit.download')}
               </a>
+            </div>
+          )}
+
+          {splitFiles.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
+                拆分完成 - {splitFiles.length} 个文件
+              </h3>
+              <button
+                onClick={downloadAllFiles}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 mb-4"
+              >
+                下载所有文件
+              </button>
+              <div className="space-y-2">
+                {splitFiles.map((file, index) => (
+                  <button
+                    key={index}
+                    onClick={() => downloadFile(file)}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 text-left"
+                  >
+                    📄 {file.filename}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -251,6 +318,7 @@ export default function PdfMergeSplit() {
         <ul className="space-y-2 text-gray-700 dark:text-gray-300">
           <li>• PDF合并：将多个PDF文件合并为一个文件</li>
           <li>• PDF拆分：根据页码范围将PDF文件拆分为多个文件</li>
+          <li>• 拆分后可以单独下载每个文件，也可以一键下载所有</li>
           <li>• 支持多种PDF版本和格式</li>
           <li>• 处理过程在本地完成，保护您的隐私</li>
         </ul>

@@ -1,0 +1,84 @@
+{
+  "common": {
+    "home": "Home",
+    "pdfToWord": "PDF to Word",
+    "imageToPdf": "Image to PDF",
+    "pdfCompress": "PDF Compress",
+    "pdfEdit": "PDF Edit",
+    "pdfMergeSplit": "PDF Merge/Split",
+    "pdfEncryptDecrypt": "PDF Encrypt/Decrypt",
+    "ocr": "OCR",
+    "free": "Free",
+    "secure": "Secure",
+    "fast": "Fast",
+    "easy": "Easy"
+  },
+  "header": {
+    "title": "PDFKing",
+    "subtitle": "Free PDF Tools"
+  },
+  "footer": {
+    "copyright": "© 2026 PDFKing. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "home": {
+    "title": "PDFKing - Free PDF Tools",
+    "description": "Provides PDF to Word conversion, PDF merge/split, PDF compression, image to PDF conversion, PDF editing, OCR text recognition, PDF encryption/decryption and other features",
+    "feature1": "Free to Use",
+    "feature2": "Secure and Reliable",
+    "feature3": "Easy to Use",
+    "feature4": "Fast Processing"
+  },
+  "pdfToWord": {
+    "title": "PDF to Word",
+    "description": "Convert PDF files to editable Word documents",
+    "upload": "Upload PDF File",
+    "convert": "Start Conversion",
+    "download": "Download Word File"
+  },
+  "imageToPdf": {
+    "title": "Image to PDF",
+    "description": "Convert image files to PDF documents",
+    "upload": "Upload Image Files",
+    "convert": "Start Conversion",
+    "download": "Download PDF File"
+  },
+  "pdfCompress": {
+    "title": "PDF Compress",
+    "description": "Reduce PDF file size for easy sharing and storage",
+    "upload": "Upload PDF File",
+    "compress": "Start Compression",
+    "download": "Download Compressed PDF"
+  },
+  "pdfEdit": {
+    "title": "PDF Edit",
+    "description": "Edit PDF file content",
+    "upload": "Upload PDF File",
+    "edit": "Start Editing",
+    "download": "Download Edited PDF"
+  },
+  "pdfMergeSplit": {
+    "title": "PDF Merge/Split",
+    "description": "Merge multiple PDF files or split PDF files into multiple parts",
+    "upload": "Upload PDF Files",
+    "merge": "Merge PDF",
+    "split": "Split PDF",
+    "download": "Download Processed PDF"
+  },
+  "pdfEncryptDecrypt": {
+    "title": "PDF Encrypt/Decrypt",
+    "description": "Add password protection to PDF files or remove password protection",
+    "upload": "Upload PDF File",
+    "encrypt": "Encrypt PDF",
+    "decrypt": "Decrypt PDF",
+    "download": "Download Processed PDF"
+  },
+  "ocr": {
+    "title": "OCR Text Recognition",
+    "description": "Recognize text from images or PDF files",
+    "upload": "Upload Image or PDF File",
+    "recognize": "Start Recognition",
+    "download": "Download Recognition Result"
+  }
+}

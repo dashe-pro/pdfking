@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function PdfEdit() {
+  const { t } = useLanguage()
   const [file, setFile] = useState<File | null>(null)
   const [activeTab, setActiveTab] = useState<'rotate' | 'delete'>('rotate')
-  const [rotatePage, setRotatePage] = useState('')
+  const [rotatePages, setRotatePages] = useState('')
   const [rotateAngle, setRotateAngle] = useState<'90' | '180' | '270'>('90')
   const [deletePages, setDeletePages] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
@@ -31,7 +33,7 @@ export default function PdfEdit() {
       return
     }
 
-    if (!rotatePage) {
+    if (!rotatePages) {
       setError('请输入要旋转的页码')
       return
     }
@@ -42,7 +44,7 @@ export default function PdfEdit() {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('page', rotatePage)
+      formData.append('pages', rotatePages)
       formData.append('angle', rotateAngle)
 
       const response = await fetch('/api/pdf/rotate', {
@@ -107,7 +109,7 @@ export default function PdfEdit() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">
-        PDF编辑
+        {t('pdfEdit.title')}
       </h1>
 
       <div className="max-w-2xl mx-auto">
@@ -129,7 +131,7 @@ export default function PdfEdit() {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <div className="mb-6">
             <label className="block text-gray-700 dark:text-gray-300 mb-2">
-              选择PDF文件
+              {t('pdfEdit.upload')}
             </label>
             <input
               type="file"
@@ -149,12 +151,12 @@ export default function PdfEdit() {
             <div>
               <div className="mb-6">
                 <label className="block text-gray-700 dark:text-gray-300 mb-2">
-                  页码（例如：1）
+                  页码（例如：1,3,5 或 1-3）
                 </label>
                 <input
                   type="text"
-                  value={rotatePage}
-                  onChange={(e) => setRotatePage(e.target.value)}
+                  value={rotatePages}
+                  onChange={(e) => setRotatePages(e.target.value)}
                   placeholder="输入要旋转的页码"
                   className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
@@ -203,10 +205,10 @@ export default function PdfEdit() {
 
               <button
                 onClick={handleRotate}
-                disabled={!file || !rotatePage || isProcessing}
+                disabled={!file || !rotatePages || isProcessing}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {isProcessing ? '旋转中...' : '开始旋转'}
+                {isProcessing ? '旋转中...' : t('pdfEdit.edit')}
               </button>
             </div>
           ) : (
@@ -229,7 +231,7 @@ export default function PdfEdit() {
                 disabled={!file || !deletePages || isProcessing}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {isProcessing ? '删除中...' : '开始删除'}
+                {isProcessing ? '删除中...' : t('pdfEdit.edit')}
               </button>
             </div>
           )}
@@ -244,7 +246,7 @@ export default function PdfEdit() {
                 download={`${file?.name.replace('.pdf', '-edited') || 'edited'}.pdf`}
                 className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-md transition-colors duration-300 text-center"
               >
-                下载编辑后的PDF文件
+                {t('pdfEdit.download')}
               </a>
             </div>
           )}
@@ -257,6 +259,7 @@ export default function PdfEdit() {
         </h2>
         <ul className="space-y-2 text-gray-700 dark:text-gray-300">
           <li>• 旋转页面：选择页码和旋转角度（90度、180度、270度）</li>
+          <li>• 支持多个页码旋转（如 1,3,5）或页码范围（如 1-3）</li>
           <li>• 删除页面：输入要删除的页码，支持单个页码（如 1）或页码范围（如 1-3）</li>
           <li>• 处理过程在本地完成，保护您的隐私</li>
           <li>• 支持多种PDF版本和格式</li>
